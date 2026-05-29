@@ -1,72 +1,61 @@
 import { useState } from 'react'
-import './App.css'
-import Card from './components/Card'
-
 
 function App() {
+  const [nome, setNome] = useState('')
+  const [usuarios, setUsuarios] =useState([])
 
-  const [contador, setContador] =useState(0)
-  
-  function aumentarcontador () {
-    setContador(contador +1)
+
+
+  function mudarNome(event) {
+    setNome(event.target.value)
   }
 
-  function diminuicontador () {
-    setContador(contador -1)
-  }
 
+
+  function adicionarUsuario() {
+    if (nome === "") {
+      return 
+    }
+
+    setUsuarios([...usuarios, nome])
+    setNome('')
+  }
 
 
 
 
   return (
-    <>
+
+    <div className="container">
+    
+      <h1>Cadastro</h1>
+
+      <input
+        type="text"
+        placeholder="Digite seu nome"
+        onChange={mudarNome}
+      />
+
+      <p>Olá, {nome}</p>
 
 
-        <div className='Container'>
+
+      <h2>Usuários cadastrados:</h2>
+
+{usuarios.map((usuario, index) => (
+  <p key={index}>{usuario}</p>
+))}
 
 
-          <h1 className='title'>
-           React no Fluxo Real da Empresa
-          </h1>
 
-
-          <p className='text'>
-            Valor do Contador: {contador}
-
-            <Card
-            title="React"
-            description="Biblioteca para criar interfaces modernas."
-            />
-
-            <Card
-            title="JavaScript"
-            description="Linguagem usada no front-end moderno."
-            />
-          </p>
-
-        </div>
-
-
-          <div className='buttons'>
-
-          
-          <button onClick={aumentarcontador}>
-            Aumetar
-          </button>
-
-          <button onClick={diminuicontador}>
-            Diminuir
-          </button>
-
-          </div>
-
-
-        
-  
-
-    </>
+      <button onClick={adicionarUsuario}>
+        Cadastrar
+      </button>
+ </div>
+      
+    
   )
 }
 
+import './App.css'
 export default App
